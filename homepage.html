@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CACSA-UI DONATION</title>
+    <link rel="stylesheet" href="basic.css">
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* border: 1px solid green; */
+        }
+        label{
+            width: auto;
+            margin-bottom: 2px;
+        }
+        div {
+            margin: 3px;
+        }
+        input {
+            border-radius: 8px;
+            border: none;
+            height: 25px;
+        }
+        button{
+            min-width: 100px;
+            border-radius: 8px;
+            border: none;
+            height: 25px;
+            /* border: 1px solid cyan; */
+        }
+        h3{
+            text-align: center;
+            margin-top: 40px;
+            /* border: 1px solid yellow; */
+        }
+    </style>    
+</head>
+
+<body>
+    <section class="admin-login"><a href="AdminLogin.html">Admin</a></section>
+
+    <form class="container">
+        <div>
+            <label for="donor_email">Email</label>
+            <input type="email" required>
+        </div>
+        <div>
+            <label for="donor_password">Password</label>
+            <input type="password" required>
+        </div>
+
+        <button><a href="donor-dashboard.html">Login</a></button>
+        <button style="background: none;">or</button>
+        <button style="background-color: #f8a557;">
+            <a href="sign-up.html">Sign Up Here</a></button>
+
+        <h3>Notify Admin of Donation</h3>
+
+        <div>
+            <label for="donor_email">Email</label>
+            <input type="email" required>
+        </div>
+
+        <div>
+            <label for="donation">Amount</label>
+            <input type="money" required>
+        </div>
+        
+        <button>Submit</button>
+    </form>
+    <script src="index.js" ></script>
+</body>
+</html>

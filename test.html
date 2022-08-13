@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, td {
+  border: 1px solid black;
+}
+.row1.row{
+    color: green;
+}
+.row1{
+    color: red
+}
+.boxes{
+    display: block;
+    width: auto;
+    border: 1px solid blue;
+}
+.hidden-content{
+    display: none;
+}
+.hidden-content.revealed-content{
+    display: block;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<p>Click the button to add a new row at the first position of the table and then add cells and content.</p>
+
+<table id="myTable">
+  <tr>
+    <td class="row1 row">Row1 cell1</td>
+    <td class="row2">Row1 cell2</td>
+  </tr>
+  <tr>
+    <td>Row2 cell1</td>
+    <td>Row2 cell2</td>
+  </tr>
+  <tr>
+    <td>Row3 cell1</td>
+    <td>Row3 cell2</td>
+  </tr>
+</table>
+<br>
+
+<button type="button" onclick="myFunction()">Try it</button>
+
+<div class="revealed-content boxes">
+    const myForm = document.querySelector('#myTable')
+</div>
+<div class="hidden-content boxes">
+    const myForm = document.querySelector('#myTable')
+    console.log(myForm)
+    const myInputDiv = document.createElement('tr')
+    myForm.append(myInputDiv)
+    myInputDiv.insertCell(0).innerText = 'Cheers to a new begginning'
+    myInputDiv.insertCell = 'Cheers to a new begginning'
+</div>
+
+<script>
+
+    function myFunction() {
+        var table = document.getElementById("myTable");
+        console.log(table)
+        var row = table.insertRow(0);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = "NEW CELL1";
+        cell2.innerHTML = "NEW CELL2";
+    }
+    
+let revealed = document.querySelector('.revealed-content')
+console.log(revealed);
+let hidden = document.querySelector('.hidden-content')
+console.log(hidden);
+
+
+function revealContent(){
+    if(hidden.classList.contains('revealed-content')){
+        hidden.classList.remove('revealed-content')
+    }else{hidden.classList.add('revealed-content')}
+}
+
+revealed.addEventListener('click', revealContent)
+
+</script>
+
+</body>
+</html>

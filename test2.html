@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: aliceblue;
+    }
+    .grand{
+    width: 600px;
+    height: 600px;
+    border: 1px solid green;
+    background-color: blueviolet;
+    }
+    .parent{
+        width: 400px;
+        height: 400px; 
+        background-color: black;
+    }
+    .child{
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+    }
+    </style>
+</head>
+<body>
+    <div class="grand">1
+        <div class="parent">2            
+            <div class="child">3                
+            </div>
+        </div>
+    </div>
+    <script>
+        const grand = document.querySelector('.grand')
+        console.log(grand)
+        const parent = document.querySelector('.parent')
+        console.log(parent)
+        const child = document.querySelector('.child')
+        console.log(child)
+        let printZooi = e => {console.log('zooi')}
+
+        addGlobalEventListener('click', 'div', printZooi)
+        function addGlobalEventListener(type, selector, callback){
+            document.addEventListener(type, e => {
+                if (e.target.matches(selector)){
+                    printZooi(e)
+                }
+            }
+            )
+        }
+
+        child.addEventListener('click', e =>
+        {console.log('Child 1')
+        e.stopPropagation()})
+
+        parent.addEventListener('click',
+         (e =>
+        {console.log('Parent 1')
+        }))
+
+        grand.addEventListener('click', e =>
+        {console.log('Grand 1')}
+        )
+4
+        // const divs = document.querySelectorAll('div')
+        // console.log(divs)
+        // divs.forEach(div => {
+        //     div.addEventListener('click', () =>
+        //     {console.log('hi')
+        // })
+        // })
+
+    </script>
+</body>
+</html>

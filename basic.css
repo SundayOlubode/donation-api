@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(188, 214, 224);
+}
+.container{
+    width: 60%;
+    max-width: 90%;
+    margin: 10% auto;
+    min-height: 100px;
+}
+label{
+    width: 10px;
+    padding-left: 4px;
+}
+div {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+}
+button {
+    margin-top: 5px;
+}
+a {
+    text-decoration: none;
+}
