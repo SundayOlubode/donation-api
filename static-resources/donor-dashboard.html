@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor-Dashboard</title>
+
+    <style>
+        main {
+            width: 500px;
+            max-width: 90%;
+            min-height: auto;
+            margin: 10% auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        body{
+            background-color: rgb(188, 214, 224);
+        }
+        table {
+            width: 100%;
+            margin: 3px;
+            background-color: rgb(188, 214, 204);
+            border: 1px solid red;
+        }
+        td {
+            text-align: center;
+            margin: 2px;
+            /* border: 1px dashed blue; */
+        }
+        h3{
+            text-decoration: underline;
+        }
+        section{
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2px;
+        }
+        label{
+            width: auto;
+            margin-bottom: 2px;
+        }
+        input {
+            border-radius: 8px;
+            border: none;
+            height: 25px;
+        }
+        div {
+            margin: 3px;
+        }
+        button{
+            width: 100px;
+            border-radius: 8px;
+            border: none;
+            height: 25px;
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h2>Welcome, name</h2>
+        <H3>Your Donation Record</H3>
+        <table id="myTable">
+            <tr id="donationDetails">
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+        </table>
+
+        <button type="button" onclick="myFunction()">Try it</button>
+        
+        <h3>Notify Admin of Donation</h3>
+        <section>
+            <div>
+                <label for="donor_email">Email</label>
+                <input type="email" required>
+            </div>
+            <div>
+                <label for="donation">Amount</label>
+                <input type="number" required>
+            </div>
+            <button>Submit</button>
+        </section>
+    </main>
+    <script src="index.js" defer></script>
+</body>
+</html>

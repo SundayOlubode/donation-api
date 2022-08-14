@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="basic.css">
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* border: 1px solid green; */
+        }
+        label{
+            width: auto;
+            margin-bottom: 2px;
+        }
+        div {
+            margin: 3px;
+        }
+        input {
+            border-radius: 8px;
+            border: none;
+            height: 25px;
+        }
+        button{
+            min-width: 100px;
+            border-radius: 8px;
+            border: none;
+            height: 25px;
+            background-color: coral;
+        }
+    </style> 
+</head>
+<body>
+    <main class="container">
+        <div>
+            <label for="Admin_email">Email:</label>
+            <input type="email" required>
+        </div>
+        <div>
+            <label for="Admin_password">Password:</label>
+            <input type="password" required>
+        </div>
+        <button>Login</button>
+    </main>
+</body>
+</html>
