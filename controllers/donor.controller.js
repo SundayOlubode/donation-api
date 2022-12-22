@@ -4,10 +4,10 @@ const donorModel = require('../models/user.model')
 
 exports.getProfile = (req, res, next) => {
     userModel.findById(req.user._id)
-    // .populate({path : '_id.donation', model: 'donorModel', populate: {path: '_id.donation'}})
+        // .populate({path : '_id.donation', model: 'donorModel', populate: {path: '_id.donation'}})
         .then((user) => {
-            if(!user){throw new Error('User not found!')}
-            res.status(200).json({User: user})
+            if (!user) { throw new Error('User not found!') }
+            res.status(200).json({ User: user })
         }).catch((error) => {
             error.httpStatusCode = 404
             next(error)
@@ -15,25 +15,26 @@ exports.getProfile = (req, res, next) => {
 }
 
 exports.notifyAdmin = (req, res, next) => {
-    const donorID = req.user._id
+
     const donationBody = req.body
-    donationBody.donor = donorID
+    donationBody.donor = req.user._id
 
     donationModel.create(donationBody)
-        .then( async (donation) => {
+        .then(async (donation) => {
 
-            const _id = donation._id
-            const donor = await donorModel.findById(donorID)
+            const { _id } = donation._id
+
+            const donor = await donorModel.findById(req.user._id)
             await donor.updateOne({ $push: { donations: { _id } } })
-            // Nodemailer Notify Admin
-            //
+
+            // TODO: Nodemailer Notify Admin
 
             res.status(200).json({
                 status: 'Success!',
                 message: 'Kindly wait while admin verify your donation. Thanks!'
             })
         }).catch((error) => {
-            console.log('Here: ',error)
+            console.log('Here: ', error)
             error.httpStatusCode = 500
             next(error)
         })

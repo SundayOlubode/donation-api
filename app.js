@@ -25,8 +25,19 @@ const { donorRoute } = require('./routes/donor.route')
 const { signup, login } = require('./controllers/donor.controller')
 const { adminRoute } = require('./routes/admin.route')
 
+
+
+
 const app = express()
 const PORT = process.env.PORT
+
+
+// Loggers
+const logger = require('./logger/logger')
+const httpLogger = require('./logger/httpLogger')
+
+app.use(httpLogger)
+
 
 // Configure limiter
 const limiter = rateLimit({
@@ -71,5 +82,5 @@ app.get('*', (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`server listening on port ${PORT}...`);
+    logger.info(`server listening on port ${PORT}...`);
 })
