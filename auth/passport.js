@@ -49,7 +49,7 @@ passport.use(
             if (!validate) { return done(null, false) }
 
             const token = generateJWT(user)
-            done(null, [user, token])
+            done(null, {user, token})
         } catch (error) {
             // use res here
             return done(error)

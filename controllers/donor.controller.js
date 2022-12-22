@@ -43,18 +43,13 @@ exports.notifyAdmin = (req, res, next) => {
 }
 
 exports.signup = (req, res) => {
-    res.status(200).json({
-        status: 'success',
-        message: 'Sign up successful!'
-    })
+    res.status(200).render('signup')
 }
 
 exports.login = (req, res) => {
-    try {
-        const { user } = req
-        console.log(user);
-        res.status(200).json({ user })
-    } catch (err) {
-        res.status(401).json(err.message)
-    }
+    const { user } = req
+    res.status(200).render('donorProfile', {
+        donor: user.user,
+        docTitle: user.user.firstname + ' Profile'
+    })
 }

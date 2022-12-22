@@ -26,8 +26,6 @@ const { signup, login } = require('./controllers/donor.controller')
 const { adminRoute } = require('./routes/admin.route')
 
 
-
-
 const app = express()
 const PORT = process.env.PORT
 
@@ -59,18 +57,24 @@ app.use(bodyparser.urlencoded({ extended: false }))
 app.use(limiter)
 
 
-app.use('/donor', passport.authenticate('jwt', { session: false }), donorRoute)
-app.use('/admin', passport.authenticate('jwt', { session: false }), adminRoute)
+// app.use('/donor', passport.authenticate('jwt', { session: false }), donorRoute)
+// app.use('/admin', passport.authenticate('jwt', { session: false }), adminRoute)
+
+app.use('/donor', donorRoute)
+app.use('/admin', adminRoute)
+
+
 app.use(errorHandler.get500Errors)
 
-// app.set('view engine', 'pug')
-// app.set('views', 'views')
+app.set('view engine', 'ejs')
+app.set('views', 'views')
 
-// app.use(express.static('public'))
+app.use(express.static('views'))
 
 app.get('/', (req, res, next) => {
-    res.status(200).send('CACSA UI')
+    res.status(200).render('home')
 })
+
 
 app.post('/login', validateLogin, passport.authenticate('login', { session: false }), login)
 app.post('/signup', validateSignup, passport.authenticate('signup', { session: false }), signup)
