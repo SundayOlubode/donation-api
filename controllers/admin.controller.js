@@ -6,7 +6,9 @@ exports.getAdminProfile = (req, res, next) => {
     const { _id } = req.query
     adminModel.findById(_id)
         .then((admin) => {
-            donationModel.find({verified : false}).populate({path: 'donor'})
+            donationModel
+                .find({ verified: false })
+                .populate({ path: 'donor' })
                 .then((donations) => {
                     res.status(200).json({
                         admin,
@@ -23,7 +25,7 @@ exports.getAdminProfile = (req, res, next) => {
 exports.verifyPayment = (req, res, next) => {
     const donationId = req.query.id
 
-    donationModel.findByIdAndUpdate(donationId, {verified: true})
+    donationModel.findByIdAndUpdate(donationId, { verified: true })
         .then((donatiion) => {
             res.status(200).json({
                 message: 'Verified!'

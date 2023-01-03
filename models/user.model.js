@@ -20,12 +20,12 @@ const donorSchema = new Schema({
         type: String,
         required: true
     },
-    donations: [{
-        _id: {
+    donations: [
+        {
             type: mongoose.Types.ObjectId,
             ref: 'donation'
-        }
-    }]
+        },
+    ]
 })
 
 

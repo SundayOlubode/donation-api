@@ -9,4 +9,4 @@ adminRoute
     .route('/verify').post(admin.verifyPayment)
 
 
-module.exports = { adminRoute }
+module.exports = adminRoute

@@ -10,7 +10,8 @@ function generateJWT(user) {
             _id: user._id,
             email: user.email,
             password: user.password,
-            fullname: user.firstname + ' ' + user.lastname
+            firstname: user.firstname,
+            lastname: user.lastname
         }
 
         const token = jwt.sign(payload, 'shhh_secret')

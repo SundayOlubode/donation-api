@@ -4,10 +4,15 @@ const donorModel = require('../models/user.model')
 
 exports.getProfile = (req, res, next) => {
     userModel.findById(req.user._id)
-        // .populate({path : '_id.donation', model: 'donorModel', populate: {path: '_id.donation'}})
+        .populate('donations.donation')
         .then((user) => {
             if (!user) { throw new Error('User not found!') }
-            res.status(200).json({ User: user })
+            // res.status(200).json({ User: user })
+            res.render('donorProfile', {
+                donor: user,
+                docTitle: user.firstname + ' ' + user.lastname
+            })
+
         }).catch((error) => {
             error.httpStatusCode = 404
             next(error)
@@ -42,14 +47,37 @@ exports.notifyAdmin = (req, res, next) => {
 
 }
 
+
+
 exports.signup = (req, res) => {
-    res.status(200).render('signup')
+    const { user } = req
+    console.log(user);
+    res.redirect(307, '/profile')
+    // res.status(200).render('donorProfile', {
+    //     donor: user,
+    //     docTitle: user.firstname + user.firstname
+    // })
 }
 
 exports.login = (req, res) => {
     const { user } = req
+    // console.log(req);
+    res.setHeader('Authorization', `Bearer ${req.user.token}`)
+        .render('donorProfile', {
+            donor: user.user,
+            docTitle: user.user.firstname + user.user.firstname
+        })
+}
+exports.register = (req, res) => {
+    res.status(200).render('signup')
+}
+
+exports.profile = (req, res) => {
+    const { user } = req
+    console.log(user);
+    // console.log(req);
     res.status(200).render('donorProfile', {
-        donor: user.user,
-        docTitle: user.user.firstname + ' Profile'
+        donor: user,
+        docTitle: user.firstname + user.firstname
     })
 }

@@ -22,9 +22,11 @@ passport.use(
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
         }, async (token, done) => {
             if (!token) {
+                console.log('Nah, bro');
                 return done(null, false)
             }
             try {
+                console.log('Cant do this');
                 const user = { _id: token._id, email: token.email, fullname: token.fullname }
                 if (!user) { return done(null, false) }
                 return done(null, user)
@@ -42,14 +44,17 @@ passport.use(
         passwordField: 'password'
     }, async (email, password, done) => {
         try {
-            const user = await donorModel.findOne({ email })
-            if (!user) { return done(null, false, { message: 'User not found!' }) }
+            console.log('Authenticated!!!');
+            // const user = await donorModel.findOne({ email })
+            // if (!user) { return done(null, false, { message: 'User not found!' }) }
            
-            const validate = await user.isValidPassword(password);
-            if (!validate) { return done(null, false) }
+            // const validate = await user.isValidPassword(password);
+            // if (!validate) { return done(null, false) }
 
-            const token = generateJWT(user)
-            done(null, {user, token})
+            // const token = generateJWT(user)
+
+            // console.log(token);
+            done(null)
         } catch (error) {
             // use res here
             return done(error)

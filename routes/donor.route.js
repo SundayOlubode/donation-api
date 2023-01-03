@@ -13,4 +13,4 @@ const { validateDonation } = require('../validation/validate')
 donorRoute.get('/profile', getProfile)
 donorRoute.post('/notify', validateDonation, notifyAdmin)
 
-module.exports = { donorRoute }
+module.exports = donorRoute 
