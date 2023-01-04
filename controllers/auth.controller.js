@@ -1,55 +1,49 @@
 const donorModel = require('../models/user.model')
-const { generateJWT } = require('../controllers/utils.controller')
 
 exports.signup = (req, res) => {
-    const { user } = req
+    const user = req.body
     console.log(user);
-    res.redirect(307, '/profile')
-    // res.status(200).render('donorProfile', {
-    //     donor: user,
-    //     docTitle: user.firstname + user.firstname
-    // })
+    donorModel.create(user)
+        .then((user) => {
+            res.redirect('/')
+        }).catch((error) => {
+            console.log(error);
+            res.redirect('/auth/signup')
+        })
 }
 
 exports.login = async (req, res) => {
     const { email, password } = req.body
 
-    console.log('Email: ', email);
-
     donorModel.findOne({ email })
         .then(async (user) => {
 
-            // console.log('User: ', user);
-
-            const validate = await user.isValidPassword(password);
-            if (!validate) { throw new Error('User not found!') }
+            user.isValidPassword(password)
+                .then((validate) => {
+                    if (!validate) {
+                        res.redirect('/')
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                    res.redirect('/')
+                })
 
             req.session.user = user
-
-            const token = generateJWT(user)
-            req.session.token = token
+            req.session.isLoggedIn = true
 
             return req.session.save((err) => {
-                if(err) console.log('Req session error: ',err);
-                // res.setHeader('Authorization', `Bearer ${token}`);
+                if (err) console.log('Req session error: ', err);
                 res.redirect('/donor/profile')
             })
         }).catch((error) => {
             console.log(error);
-            res.redirect('/auth/login')
+            res.redirect('/')
         })
 }
 
-exports.register = (req, res) => {
-    res.status(200).render('signup')
-}
-
-exports.profile = (req, res) => {
-    const { user } = req
-    console.log(user);
-    // console.log(req);
-    res.status(200).render('donorProfile', {
-        donor: user,
-        docTitle: user.firstname + user.firstname
+exports.logout = (req, res, next) => {
+    req.session.destroy((err) => {
+        if(err) console.log(err);
+        res.redirect('/')
     })
 }

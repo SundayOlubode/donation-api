@@ -20,7 +20,7 @@ const donorSchema = new Schema({
         type: String,
         required: true
     },
-    donations: [
+    donation: [
         {
             type: mongoose.Types.ObjectId,
             ref: 'donation'

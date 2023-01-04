@@ -6,10 +6,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors')
 
-// // Passport Midlleware
-const passport = require('passport')
-require('./auth/passport')
-
 // // ENV
 require('dotenv').config()
 
@@ -20,9 +16,10 @@ const database = require('./database/mongodb')
 const errorHandler = require('./controllers/errors.controller')
 
 // Routes
-const donorRoute  = require('./routes/donor.route')
+const donorRoute = require('./routes/donor.route')
 const adminRoute = require('./routes/admin.route')
 const authRouter = require('./routes/auth.routes');
+const donationModel = require('./models/donation.model');
 
 
 const app = express()
@@ -51,14 +48,14 @@ const limiter = rateLimit({
 database.connectDB()
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODBURL,
         collectionName: 'sessions'
     })
-  })
+})
 );
 
 app.set('view engine', 'ejs')
@@ -72,26 +69,34 @@ app.use(limiter)
 // // app.use(cors)
 
 
+
+
+app.use((req, res, next) => {
+    if (!req.session.user) {
+        return next();
+    }
+    req.user = req.session.user
+    next()
+})
+
 app.get('/', (req, res, next) => {
     console.log(req.session);
     res.status(200).render('home')
 })
 
+app.use('/auth', authRouter)
 
 app.use((req, res, next) => {
-    if(req.session.token){
-        console.log('We are here!!!!!');
-        const token = req.session.token
-        console.log(token);
-        res.set('Authorization', `Bearer ${token}`);
-        console.log(req.headers);
-        next();
+    try {
+        req.session.user._id
+    } catch (error) {
+        res.redirect('/')
     }
 })
 
-app.use('/auth', authRouter)
-app.use('/donor', passport.authenticate('jwt', { session: false }), donorRoute)
-app.use('/admin', passport.authenticate('jwt', { session: false }), adminRoute)
+app.use('/donor', donorRoute)
+app.use('/admin', adminRoute)
+
 
 app.get('*', (req, res) => {
     res.status(404).send('<h1>Page not found!</h1>')

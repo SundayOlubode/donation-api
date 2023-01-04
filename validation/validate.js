@@ -2,13 +2,13 @@ const joi = require('joi')
 
 const validator = (schema) => (req, res, next) => {
     const payload = req.body
-    
-    schema.validateAsync(payload, {abortEarly: false})
+
+    schema.validateAsync(payload, { abortEarly: false })
         .then(() => {
             next()
         }).catch((error) => {
             next(error)
-        }) 
+        })
 }
 
 const adminSchema = joi.object({
@@ -39,6 +39,9 @@ const userSignupSchema = joi.object({
     password: joi.string()
         .min(4)
         .required(),
+    confirmPassword: joi.string()
+        .min(4)
+        .required(),
     firstname: joi.string()
         .min(2)
         .max(20)
@@ -62,7 +65,8 @@ const userLoginSchema = joi.object({
 const donationSchema = joi.object({
     // TODO donationschema
     amount: joi.number()
-        .required()
+        .required(),
+    date: joi.date()
 })
 
 

@@ -5,14 +5,11 @@ const { validateSignup, validateLogin } = require('../validation/validate')
 
 const authRouter = express.Router()
 
-const passport = require('passport')
-require('../auth/passport')
-
-
-// authRouter.post('/login', validateLogin, passport.authenticate('login', { session: false }), authController.login)
 authRouter.post('/login', authController.login)
-authRouter.post('/signup', validateSignup, passport.authenticate('signup', { session: false }), authController.signup)
 
+authRouter.post('/logout', authController.logout)
+
+authRouter.post('/signup', validateSignup, authController.signup)
 
 authRouter.get('/signup', (req, res, next) => {
     res.render('signup')
