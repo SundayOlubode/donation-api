@@ -5,6 +5,7 @@ const rateLimit = require("express-rate-limit");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors')
+const flash = require('connect-flash')
 
 // // ENV
 require('dotenv').config()
@@ -58,6 +59,8 @@ app.use(session({
 })
 );
 
+app.use(flash())
+
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 app.use(express.static('views'))
@@ -81,7 +84,9 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res, next) => {
     console.log(req.session);
-    res.status(200).render('home')
+    res.status(200).render('home', {
+        errorMessage: req.flash('error')
+    })
 })
 
 app.use('/auth', authRouter)
@@ -90,6 +95,7 @@ app.use((req, res, next) => {
     try {
         req.session.user._id
     } catch (error) {
+        req.flash('error', 'Please Sign In')
         res.redirect('/')
     }
 })
