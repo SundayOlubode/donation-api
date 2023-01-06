@@ -3,11 +3,20 @@ const {
     getProfile,
     notifyAdmin
 } = require('../controllers/donor.controller')
+
 const donationModel = require('../models/user.model')
 const donorRoute = express.Router()
 
 //Validator
 const { validateDonation } = require('../validation/validate')
+
+donorRoute.use((req, res, next) => {
+    if (req.session.user) {
+        return next();
+    }
+    req.flash('error', 'Please Sign In')
+    res.redirect('/')
+})
 
 donorRoute.get('/all', (req, res, next) => {
     donationModel.findById(req.user._id)
@@ -17,7 +26,7 @@ donorRoute.get('/all', (req, res, next) => {
                 donors
             })
         }).catch((err) => {
-            res.status(401).json({message: err.message})
+            res.status(401).json({ message: err.message })
         })
 })
 

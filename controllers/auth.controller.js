@@ -1,8 +1,8 @@
+const { validate } = require('../models/admin.model');
 const donorModel = require('../models/user.model')
 
 exports.signup = (req, res) => {
     const user = req.body
-    console.log(user);
     donorModel.create(user)
         .then((user) => {
             res.redirect('/')
@@ -17,33 +17,31 @@ exports.login = async (req, res) => {
 
     donorModel.findOne({ email })
         .then(async (user) => {
-
             user.isValidPassword(password)
                 .then((validate) => {
-                    if (!validate) {
-                        res.redirect('/')
+                    if (validate) {
+                        req.session.user = user
+                        return req.session.save((err) => {
+                            if (err) console.log('Req session error: ', err);
+                            res.redirect('/donor/profile')
+                        })
                     }
-                }).catch((error) => {
-                    console.log(error);
+                    req.flash('error', 'Incorrect Username or Password!')
+                    res.redirect('/')
+
+                }).catch(() => {
                     res.redirect('/')
                 })
-
-            req.session.user = user
-            req.session.isLoggedIn = true
-
-            return req.session.save((err) => {
-                if (err) console.log('Req session error: ', err);
-                res.redirect('/donor/profile')
-            })
         }).catch((error) => {
             console.log(error);
+            req.flash('error', 'User not found, Kindly Sign Up')
             res.redirect('/')
         })
 }
 
 exports.logout = (req, res, next) => {
     req.session.destroy((err) => {
-        if(err) console.log(err);
+        if (err) console.log(err);
         res.redirect('/')
     })
 }

@@ -5,14 +5,17 @@ const { validateSignup, validateLogin } = require('../validation/validate')
 
 const authRouter = express.Router()
 
-authRouter.post('/login', authController.login)
+authRouter.post('/login',validateLogin, authController.login)
 
 authRouter.post('/logout', authController.logout)
 
 authRouter.post('/signup', validateSignup, authController.signup)
 
 authRouter.get('/signup', (req, res, next) => {
-    res.render('signup')
+    res.render('signup', {
+        docTitle: 'Signup',
+        errorMessage: req.flash('error')
+    })
 })
 
 module.exports = authRouter

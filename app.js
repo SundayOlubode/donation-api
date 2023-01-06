@@ -6,6 +6,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors')
 const flash = require('connect-flash')
+const csrf = require('csrf')
 
 // // ENV
 require('dotenv').config()
@@ -59,6 +60,7 @@ app.use(session({
 })
 );
 
+
 app.use(flash())
 
 app.set('view engine', 'ejs')
@@ -72,7 +74,7 @@ app.use(limiter)
 // // app.use(cors)
 
 
-
+app.use('/admin', adminRoute)
 
 app.use((req, res, next) => {
     if (!req.session.user) {
@@ -89,19 +91,11 @@ app.get('/', (req, res, next) => {
     })
 })
 
+
 app.use('/auth', authRouter)
 
-app.use((req, res, next) => {
-    try {
-        req.session.user._id
-    } catch (error) {
-        req.flash('error', 'Please Sign In')
-        res.redirect('/')
-    }
-})
-
 app.use('/donor', donorRoute)
-app.use('/admin', adminRoute)
+
 
 
 app.get('*', (req, res) => {

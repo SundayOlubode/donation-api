@@ -3,24 +3,24 @@ const donationModel = require('../models/donation.model')
 const donorModel = require('../models/user.model')
 
 exports.getProfile = (req, res, next) => {
-    
-        userModel.findById(req.session.user._id)
-            .populate('donation')
-            .then((user) => {
-                const donations = user.donation
-                // const date = JSON.stringify(user.donation[0].date).slice(15)
-                // console.log('date ',date);
-                res.render('donorProfile', {
-                    donor: user,
-                    donations: donations,
-                    docTitle: 'Donor Profile'
-                })
 
-            }).catch((error) => {
-                error.httpStatusCode = 404
-                next(error)
+    userModel.findById(req.session.user._id)
+        .populate('donation')
+        .then((user) => {
+            const donations = user.donation
+            // const date = JSON.stringify(user.donation[0].date).slice(15)
+            // console.log('date ',date);
+            res.render('donorProfile', {
+                donor: user,
+                donations: donations,
+                docTitle: 'Donor Profile'
             })
-    
+
+        }).catch((error) => {
+            error.httpStatusCode = 404
+            next(error)
+        })
+
 }
 
 exports.notifyAdmin = (req, res, next) => {
@@ -64,25 +64,12 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res) => {
     const { user } = req
-    // console.log(req);
-    res
-        .render('donorProfile', {
-            donor: user.user,
-            docTitle: user.user.firstname + user.user.firstname
+    res.render('donorProfile', {
+            donor: user.user
         })
 }
 
 
 exports.register = (req, res) => {
     res.status(200).render('signup')
-}
-
-exports.profile = (req, res) => {
-    const { user } = req
-    console.log(user);
-    // console.log(req);
-    res.status(200).render('donorProfile', {
-        donor: user,
-        docTitle: user.firstname + user.firstname
-    })
 }
