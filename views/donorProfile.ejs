@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= `CACSA-UI | ${docTitle}` %>
+    </title>
+    <link rel="stylesheet" href="./css/basic.css">
+</head>
+<body>
+    <form action="/auth/logout", method="POST">
+       <button>Logout</button>
+    </form>
+    <% if (donor) { %>
+        <main>
+            <h2>Welcome, <%= donor.firstname %>
+            </h2>
+            <H3>Your Donation Record</H3>
+            <table id="myTable">
+                <tr id="donationDetails">
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Verification</th>
+                </tr>
+                <% if ( donations ) { %>
+                    <%  var total = 0 %>
+                    <% for (let donation of donations) { %>
+                        <tr id="donationDetails">
+                            <td>
+                                <%= JSON.stringify(donation.date).slice(1, 11) %>
+                            </td>
+                            <td>
+                                NGN <%= donation.amount %>
+                            </td>
+                        </tr>
+                    <%  total += Number(donation.amount) %>
+                    <% }; %>
+                <% } %>
+                <tr>
+                    <th>Total: </th>
+                    <th>NGN <%= total %></th>
+                </tr>
+            </table>
+
+            <h3>Just made a payment? Notify Admin</h3>
+            <form action="/donor/notify" method="POST">
+                <div>
+                    <label for="amount">Amount: </label>
+                    <input type="number" name="amount" required>
+                </div>
+                <div>
+                    <label for="Date">Date: </label>
+                    <input type="date" name="date" required>
+                </div>
+                <button>Submit</button>
+            </form>
+        </main>
+        <% } %>
+</body>
+
+</html>
