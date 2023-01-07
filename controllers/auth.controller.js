@@ -1,5 +1,6 @@
 const { validate } = require('../models/admin.model');
 const donorModel = require('../models/user.model')
+const crypto = require('crypto')
 
 exports.signup = (req, res) => {
     const user = req.body
@@ -28,7 +29,6 @@ exports.login = async (req, res) => {
                     }
                     req.flash('error', 'Incorrect Username or Password!')
                     res.redirect('/')
-
                 }).catch(() => {
                     res.redirect('/')
                 })
@@ -44,4 +44,8 @@ exports.logout = (req, res, next) => {
         if (err) console.log(err);
         res.redirect('/')
     })
+}
+
+exports.reset = (req, res, next) => {
+
 }

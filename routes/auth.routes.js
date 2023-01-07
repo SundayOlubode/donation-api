@@ -18,4 +18,13 @@ authRouter.get('/signup', (req, res, next) => {
     })
 })
 
+authRouter.get('/reset', (req, res, next) => {
+    res.render('reset', {
+        docTitle: 'Reset Password',
+        errorMessage: req.flash('error')
+    })
+})
+
+authRouter.post('/reset', authController.reset)
+
 module.exports = authRouter

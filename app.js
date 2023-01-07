@@ -28,6 +28,7 @@ const app = express()
 const PORT = process.env.PORT
 
 
+
 // // Loggers
 // // const logger = require('./logger/logger')
 // // const httpLogger = require('./logger/httpLogger');
@@ -86,7 +87,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res, next) => {
     console.log(req.session);
-    res.status(200).render('home', {
+    res.status(200).render('index', {
         errorMessage: req.flash('error')
     })
 })

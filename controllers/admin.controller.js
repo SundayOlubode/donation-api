@@ -13,6 +13,7 @@ exports.getProfile = (req, res, next) => {
         .find({ verified: false })
         .populate({ path: 'donor' })
         .then((donations) => {
+            console.log(donations);
             res.render('adminProfile', {
                 donations: donations,
                 docTitle: 'Admin | Profile'
