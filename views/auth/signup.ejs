@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="../css/basic.css">
+    </head>
+
+    <body>
+        <% if(errorMessage) { %>
+            <div class="error-message">
+                <%= errorMessage[errorMessage.length -1] %>
+            </div>
+            <% } %>
+                <section class="container">
+                    <form action="/auth/signup" method="POST">
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" required value="sammy@gmail.com">
+                        </div>
+                        <div>
+                            <label for="firstname">Firstname</label>
+                            <input type="text" name="firstname" required>
+                        </div>
+                        <div>
+                            <label for="lastname">Lastname</label>
+                            <input type="text" name="lastname" required>
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div>
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" name="confirmPassword" required>
+                        </div>
+                        <button> Signup </button>
+                    </form>
+                </section>
+
+    </body>
+
+    </html>

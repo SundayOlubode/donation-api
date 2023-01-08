@@ -8,7 +8,8 @@
     <title>
         <%= `CACSA-UI | ${docTitle}` %>
     </title>
-    <link rel="stylesheet" href="./css/basic.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/donor.css">
 </head>
 <body>
     <form action="/auth/logout", method="POST">
@@ -16,10 +17,9 @@
     </form>
     <% if (donor) { %>
         <main>
-            <h2>Welcome, <%= donor.firstname %>
-            </h2>
+            <h2>Welcome, <%= donor.firstname %></h2>
             <H3>Your Donation Record</H3>
-            <table id="myTable">
+            <table class="table">
                 <tr id="donationDetails">
                     <th>Date</th>
                     <th>Amount</th>

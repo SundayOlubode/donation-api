@@ -7,7 +7,7 @@ const { validateAdminLogin, validateAdminSignup } = require('../validation/valid
 const adminRoute = express.Router()
 
 adminRoute.get('/login', (req, res, next) => {
-    res.render('admin', {
+    res.render('admin/auth', {
         errorMessage: req.flash('error'),
         path: '/login',
         docTitle: 'Admin Login'
@@ -15,7 +15,7 @@ adminRoute.get('/login', (req, res, next) => {
 })
 
 adminRoute.get('/signup',  (req, res, next) => {
-    res.render('admin', {
+    res.render('admin/auth', {
         errorMessage: req.flash('error'),
         path: '/signup',
         docTitle: 'Admin Signup'

@@ -8,10 +8,10 @@ exports.getProfile = (req, res, next) => {
         .populate('donation')
         .then((user) => {
             const donations = user.donation
-            res.render('donorProfile', {
+            res.render('donor/profile', {
                 donor: user,
                 donations: donations,
-                docTitle: 'Donor Profile'
+                docTitle: 'Profile'
             })
 
         }).catch((error) => {
@@ -44,8 +44,6 @@ exports.notifyAdmin = (req, res, next) => {
         })
 }
 
-
-
 exports.signup = (req, res) => {
     const { user } = req
     console.log(user);
@@ -54,11 +52,10 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res) => {
     const { user } = req
-    res.render('donorProfile', {
+    res.render('donor/profile', {
             donor: user.user
         })
 }
-
 
 exports.register = (req, res) => {
     res.status(200).render('signup')

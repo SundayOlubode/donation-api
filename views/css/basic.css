@@ -2,11 +2,12 @@ body {
     background-color: rgb(188, 214, 224);
 }
 .container{
-    width: 60%;
+    width: 50%;
     max-width: 90%;
     margin: 10% auto;
     min-height: 100px;
 }
+
 label{
     width: 10px;
     padding-left: 4px;
@@ -22,6 +23,11 @@ button {
 }
 a {
     text-decoration: none;
+}
+
+input {
+    height: 20%;
+    width: 70%;
 }
 
 .error-message {

@@ -12,14 +12,14 @@ authRouter.post('/logout', authController.logout)
 authRouter.post('/signup', validateSignup, authController.signup)
 
 authRouter.get('/signup', (req, res, next) => {
-    res.render('signup', {
+    res.render('auth/signup', {
         docTitle: 'Signup',
         errorMessage: req.flash('error')
     })
 })
 
 authRouter.get('/reset', (req, res, next) => {
-    res.render('reset', {
+    res.render('auth/reset', {
         docTitle: 'Reset Password',
         errorMessage: req.flash('error')
     })
