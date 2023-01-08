@@ -35,6 +35,9 @@
                             <td>
                                 NGN <%= donation.amount %>
                             </td>
+                            <td>
+                                <%= donation.verified %>
+                            </td>
                         </tr>
                     <%  total += Number(donation.amount) %>
                     <% }; %>
