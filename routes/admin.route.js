@@ -43,7 +43,4 @@ adminRoute.post('/verify/:id', adminController.verifyPayment)
 
 adminRoute.post('/disburse', adminController.disburse)
 
-adminRoute.post('/breakdown', adminController.breakdown)
-
-
 module.exports = adminRoute
