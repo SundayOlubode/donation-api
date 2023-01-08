@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>`CACSA-UI | ${docTitle}`</title>
+<%- include('includes/head.ejs') %>
     <style>
-        section{
+        section {
             display: flex;
             border: 1px solid blue;
             min-height: 50px;
@@ -16,29 +10,19 @@
             margin-right: 5px;
         }
     </style>
-</head>
-<body>
-    <main class="container">
-        <section>
-            <div>
-                <h3>Total Donation</h3>
-                <amount>NGN 200,000</amount>
-            </div>
-            <div>
-                <h3>Disbursed</h3>
-                <amount>NGN 200,000</amount>
-            </div>
-            <div>
-                <h3>Yet To Disburse</h3>
-                <amount>NGN 200,000</amount>
-            </div>
-        </section>
+    </head>
+
+    <body>
+            <%- include('includes/verify.ejs') %>
+  
+        <div>
+            <%= donations %>
+        </div>
         <section>
             <h4>Notification</h4>
             <h4>Donation History</h4>
             <h4>Donors' List</h4>
-            
         </section>
-    </main>
 </body>
-</html>
+
+    </html>

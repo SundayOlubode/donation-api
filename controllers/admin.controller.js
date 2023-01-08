@@ -1,41 +1,6 @@
 const adminModel = require('../models/admin.model')
 const donationModel = require('../models/donation.model')
-
-
-exports.getProfile = (req, res, next) => {
-    console.log('Here now!');
-
-    const admin = req.session.admin
-
-    console.log('Admin', admin);
-
-    donationModel
-        .find({ verified: false })
-        .populate({ path: 'donor' })
-        .then((donations) => {
-            console.log(donations);
-            res.render('adminProfile', {
-                donations: donations,
-                docTitle: 'Admin | Profile'
-            })
-        }).catch((error) => {
-            res.redirect('/admin/login')
-        })
-}
-
-exports.verifyPayment = (req, res, next) => {
-    const donationId = req.query.id
-
-    donationModel.findByIdAndUpdate(donationId, { verified: true })
-        .then((donatiion) => {
-            res.status(200).json({
-                message: 'Verified!'
-            })
-        }).catch((error) => {
-            error.httpStatusCode = 500
-            next(error)
-        })
-}
+const breakdownModel = require('../models/breakdown.model')
 
 exports.login = async (req, res, next) => {
     const { email, password } = req.body
@@ -73,5 +38,116 @@ exports.signup = (req, res, next) => {
         .then((admin) => {
             req.flash('adminSignup', 'You are nor an Admin /n Kindly Log in')
             res.redirect('/admin/login')
+        })
+}
+
+exports.getProfile = (req, res, next) => {
+    const admin = req.session.admin
+
+    donationModel
+        .find({ verified: 'Pending' })
+        .populate({ path: 'donor', select: 'firstname lastname' })
+        .then((donations) => {
+            breakdownModel
+                .find()
+                .then((breakdown) => {
+                    let pendingDonations;
+                    if (donations.length < 1) {
+                        pendingDonation = null
+                    }
+                    pendingDonations = donations
+                    res.render('admin/profile', {
+                        errorMessage: req.flash('error'),
+                        verifySuccess: req.flash('success'),
+                        donations: pendingDonations,
+                        docTitle: 'Admin | Profile',
+                        path: '/breakdown',
+                        breakdown: breakdown[0]
+                    })
+                })
+        }).catch((error) => {
+            res.redirect('/admin/login')
+        })
+}
+
+exports.verifyPayment = (req, res, next) => {
+    const donationId = req.params.id
+    donationModel.findByIdAndUpdate(donationId, { verified: 'Verified' })
+        .then((donation) => {
+            breakdownModel
+                .find()
+                .then(async (breakdown) => {
+
+                    breakdown[0].total += Number(donation.amount)
+                    await breakdown[0].save()
+
+                    req.flash('success', 'Verification Succesful!');
+                    res.redirect('/admin/verify')
+                }).catch(() => {
+                    req.flash('error', 'Server Error, Please Try Again!');
+                    res.redirect('/admin/verify')
+                })
+            //TODO: Notify Donor
+        }).catch((error) => {
+            req.flash('error', 'Verification failed, Try Again!')
+            res.redirect('/admin/verify')
+        })
+}
+
+exports.disburse = (req, res, next) => {
+    const disbursedAmount = req.body.disbursed
+    breakdownModel.findOne()
+        .then(async (breakdown) => {
+            breakdown.disbursed += Number(disbursedAmount)
+            breakdown.balance = Number(breakdown.total) - Number(breakdown.disbursed)
+            await breakdown.save()
+            req.flash('success', 'Update Successfull!')
+            res.redirect('/admin/profile')
+        }).catch(() => {
+            req.flash('error', 'Error, Please try again!')
+            res.redirect('/admin/profile')
+        })
+}
+
+exports.getVerify = (req, res, next) => {
+    donationModel
+        .find({ verified: 'Pending' })
+        .sort({ date: -1 })
+        .populate({ path: 'donor', select: 'firstname lastname' })
+        .then((donations) => {
+            let pendingDonations;
+            if (donations.length < 1) {
+                pendingDonation = null
+            }
+            pendingDonations = donations
+            res.render('admin/verify', {
+                errorMessage: req.flash('error'),
+                verifySuccess: req.flash('success'),
+                donations: pendingDonations,
+                docTitle: 'Admin | Verify',
+                path: '/verify'
+            })
+
+        }).catch((error) => {
+            res.redirect('/admin/profile')
+        })
+}
+
+exports.getDonations = (req, res, next) => {
+    donationModel
+        .find()
+        .sort({ date: -1 })
+        .populate({ path: 'donor', select: 'firstname lastname' })
+        .then((donations) => {
+            res.render('admin/donations', {
+                errorMessage: req.flash('error'),
+                verifySuccess: req.flash('success'),
+                donations: donations,
+                docTitle: 'Admin | Donations',
+                path: '/verify'
+            })
+        }).catch((error) => {
+            req.flash('error', 'Can\'t load donations. Try Again!')
+            res.redirect('/admin/profile')
         })
 }

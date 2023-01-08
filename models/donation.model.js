@@ -9,8 +9,8 @@ const donationSchema = new Schema({
     },
     donor: {type: mongoose.Types.ObjectId, ref: 'donor'},
     verified: {
-        type: Boolean, 
-        default: false
+        type: String, 
+        default: 'Pending'
     }
   
 })
