@@ -55,6 +55,7 @@ const userSignupSchema = joi.object({
         .min(4)
         .required(),
     confirmPassword: joi.string()
+        .valid(joi.ref('password')).required()
         .min(4)
         .required(),
     firstname: joi.string()

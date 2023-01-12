@@ -6,53 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= `CACSA-UI | ${docTitle}` %></title>
-    <!-- <link rel="stylesheet" href="basic.css"> -->
-    <style>
-        body {
-            background-color: rgb(188, 214, 224);
-        }
-
-        .container {
-            margin: 15% 35%;
-        }
-
-        label {
-            margin-bottom: 8px;
-        }
-        button:hover {
-            background-color: rgb(236, 206, 195);
-        }
-
-        div {
-            margin: 3px;
-        }
-
-        input {
-            border-radius: 2px;
-            border: 0.1px solid;
-            height: 15px;
-            margin-bottom: 8px
-        }
-
-        button {
-            min-width: 100px;
-            border-radius: 8px;
-            border: none;
-            height: 25px;
-            background-color: coral;
-        }
-
-        .error-message {
-            color: rgb(224, 26, 26);
-            text-align: center;
-            /* margin-bottom: 10px; */
-        }
-    </style>
+    <link rel="stylesheet" href="../css/basic.css">
 </head>
 
 <body>
     <main class="container">
-        <% if(errorMessage) { %>
+        <% if(errorMessage.length > 0) { %>
             <div class="error-message">
                 <%= errorMessage[errorMessage.length -1] %>
             </div>
@@ -60,44 +19,40 @@
 
         <% if ( path === '/login' ) { %>
         <form class="entry-box" action="/admin/login" , method="POST">
-            <div>
+            <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" name="email" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" name="password" required>
             </div>
-            <button>Login</button>
-        </form>
-        <div style="color:rgb(188, 214, 224)">OR</div>
-        <form action="/admin/signup">
-            <button>Signup</button>
-        </form>
+            <button>Login</button> OR 
+            <button class="getsignup"><a href="/admin/signup"> Sign Up </a></button>
+        </form>        
         <% } %>
 
         <% if ( path === '/signup' ) { %>
         <form class="entry-box" action="/admin/signup" , method="POST">
-            <div>
+            <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" name="email" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" name="password" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="firstname">Firstname:</label>
                 <input type="firstname" name="firstname" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="lastname">Lastname:</label>
                 <input type="lastname" name="lastname" required>
             </div>
             <button>Signup</button>
         </form>
-        <% } %> 
-
+        <% } %>
     </main>
 </body>
 </html>

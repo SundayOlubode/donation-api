@@ -3,30 +3,30 @@
     </head>
 
     <body>
-        <% if(errorMessage) { %>
+        <% if(errorMessage.length > 0) { %>
             <div class="error-message">
                 <%= errorMessage[errorMessage.length -1] %>
             </div>
             <% } %>
                 <section class="container">
                     <form action="/auth/signup" method="POST">
-                        <div>
+                        <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" name="email" required value="sammy@gmail.com">
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="firstname">Firstname</label>
                             <input type="text" name="firstname" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="lastname">Lastname</label>
                             <input type="text" name="lastname" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" name="password" required>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="confirmPassword">Confirm Password</label>
                             <input type="password" name="confirmPassword" required>
                         </div>
