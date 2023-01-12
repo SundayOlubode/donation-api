@@ -1,39 +1,47 @@
 <%- include('../includes/head.ejs') %>
     </head>
-<body>
 
-    <%- include('../includes/navigation.ejs') %>
-    
-<% if (donations) { %>
-    
-    <% if (verifySuccess.length > 0) { %>
-        <div>
-            <%= verifySuccess %>
-        </div>
-        <% } %>
-        <% if (errorMessage.length > 0) { %>
-        <div>
-            <%= errorMessage %>
-        </div>
-        <% } %>
-        
-    <table>
-        <tr>
-            <th>Donations</th>
-        </tr>
-        <tr>
-            <th>Date</th>
-            <th>Donor</th>
-            <th>Amount</th>
-        </tr>
-        <% donations.forEach( function (donation) { %>
-             <tr>
-                <th> <%= JSON.stringify(donation.date).slice(1, 11) %> </th>
-                <th> <%= `${donation.donor.firstname} ${donation.donor.lastname}` %> </th>
-                <th> <%= donation.amount %> </th>
-            </tr>   
-            <% }) %>
-    </table>
-    <% } %>
-</body>
-</html>
+    <body>
+
+        <%- include('../includes/navigation.ejs') %>
+
+            <% if (donations) { %>
+
+                <% if (verifySuccess.length> 0) { %>
+                    <div>
+                        <%= verifySuccess %>
+                    </div>
+                    <% } %>
+                        <% if (errorMessage.length> 0) { %>
+                            <div>
+                                <%= errorMessage %>
+                            </div>
+                            <% } %>
+
+                                <h3 class="form-header"> Donations</h3>
+
+                                <table>
+
+                                    <tr class="tr">
+                                        <th>Date</th>
+                                        <th>Donor</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    <% donations.forEach( function (donation) { %>
+                                        <tr>
+                                            <th>
+                                                <%= JSON.stringify(donation.date).slice(1, 11) %>
+                                            </th>
+                                            <th>
+                                                <%= `${donation.donor.firstname} ${donation.donor.lastname}` %>
+                                            </th>
+                                            <th>
+                                                <%= donation.amount %>
+                                            </th>
+                                        </tr>
+                                        <% }) %>
+                                </table>
+                                <% } %>
+    </body>
+
+    </html>

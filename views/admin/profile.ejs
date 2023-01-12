@@ -4,23 +4,35 @@
     <body>
 
         <%- include('../includes/navigation.ejs') %>
+            <main>
+                <section>
+                    <div class="breakdown">
+                        <div>
+                            <%= `Total: NGN ${breakdown.total}` %>
+                        </div>
+                        <div>
+                            <%= `Disbursed: NGN ${breakdown.disbursed}` %>
+                        </div>
+                        <div>
+                            <%= `Balance: NGN ${breakdown.balance}` %>
+                        </div>
+                    </div>
 
-                <div>
-                    <%= `Total: NGN ${breakdown.total}` %>
-                </div>
-                <div>
-                    <%= `Disbursed: NGN ${breakdown.disbursed}` %>
-                </div>
-                <div>
-                    <%= `Balance: NGN ${breakdown.balance}` %>
-                </div>
+                </section>
 
-                <div>Disbursed Lately? How much?</div>
+
+                <div class="form-header">Disbursed Lately? How much?</div>
                 <form action="/admin/disburse" method="POST">
-                    <label for="money">Amount Disbursed</label>
-                    <input type="number" name="disbursed">
-                    <button type="submit">Submit</button>
+                    <div class="form-group">
+                        <label for="number">Amount Disbursed</label>
+                        <input type="number" name="disbursed">
+                        <button type="submit">Submit</button>
+                    </div>
+
                 </form>
+            </main>
+
+
 
     </body>
 

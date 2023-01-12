@@ -54,3 +54,9 @@ input {
 .reset:hover {
     color: red;
 }
+
+
+.tr {
+    background-color: rgb(236, 230, 230);
+    border-bottom: 1px solid black;
+}
