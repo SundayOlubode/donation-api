@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= `CACSA-UI | ${docTitle}` %>
+    </title>
+    <link rel="stylesheet" href="../css/basic.css">
+</head>
+
+<body>
+    <main class="container">
+        <% if(errorMessage.length> 0) { %>
+            <div class="error-message">
+                <%= errorMessage[errorMessage.length -1] %>
+            </div>
+            <% } %>
+
+                <form action="/admin/login" , method="POST">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div>
+                        <button type="submit"> <a href="/auth/reset "> Reset Password </a></button>
+                    </div>
+                </form>
+
+
+    </main>
+</body>
+
+</html>

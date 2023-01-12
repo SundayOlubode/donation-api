@@ -7,7 +7,7 @@ const { validateAdminLogin, validateAdminSignup } = require('../validation/valid
 const adminRoute = express.Router()
 
 adminRoute.get('/login', (req, res, next) => {
-    res.render('admin', {
+    res.render('admin/auth', {
         errorMessage: req.flash('error'),
         path: '/login',
         docTitle: 'Admin Login'
@@ -15,7 +15,7 @@ adminRoute.get('/login', (req, res, next) => {
 })
 
 adminRoute.get('/signup',  (req, res, next) => {
-    res.render('admin', {
+    res.render('admin/auth', {
         errorMessage: req.flash('error'),
         path: '/signup',
         docTitle: 'Admin Signup'
@@ -42,8 +42,5 @@ adminRoute.get('/donations', adminController.getDonations)
 adminRoute.post('/verify/:id', adminController.verifyPayment)
 
 adminRoute.post('/disburse', adminController.disburse)
-
-adminRoute.post('/breakdown', adminController.breakdown)
-
 
 module.exports = adminRoute

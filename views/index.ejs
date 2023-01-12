@@ -10,34 +10,30 @@
 </head>
 
 <body>
-    <form action="/admin/login">
-        <button class="admin-login"> Admin </button>
-    </form>
+    <a href="/admin/login"><button  class="admin-login"> Admin </button></a>
 
-    <% if(errorMessage) { %>
+    <% if(errorMessage.length > 1) { %>
         <div class="error-message"> <%= errorMessage[errorMessage.length -1] %> </div>
     <% } %>
-
-    <form class="container" action="/auth/login" method="POST">
-        <div>
+    <section class="container">
+        <form action="/auth/login" method="POST">
+        <div class="form-group">
             <label for="email">Email</label>
             <input type="email" name="email" required value="sammy@gmail.com">
         </div>
-        <div>
+        <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" required>
         </div>
 
         <button> Login </button>
+        OR
+        <button class="getsignup"><a href="/auth/signup"> Sign Up </a></button>
+        
+        <a class="reset"
+        href="/auth/reset">Reset Password</a>
     </form>
-    <div>
-        <a href="/auth/reset">Reset Password</a>
-    </div>
-    <form action="/auth/signup">
-        <button style="background-color: #d8781e; color: #000;">
-            Sign Up</button>
-    </form>
-
+    </section>
 </body>
 
 </html>
