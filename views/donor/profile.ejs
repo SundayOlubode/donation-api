@@ -11,56 +11,65 @@
     <link rel="stylesheet" href="../css/basic.css">
     <link rel="stylesheet" href="../css/donor.css">
 </head>
+
 <body>
-    <form action="/auth/logout", method="POST">
-       <button>Logout</button>
-    </form>
+    <li class="nav">
+        <form action="/auth/logout" , method="POST">
+            <button class="logout" >Logout</button>
+        </form>
+    </li>
+
     <% if (donor) { %>
-        <main>
-            <h2>Welcome, <%= donor.firstname %></h2>
-            <H3>Your Donation Record</H3>
+        <section class="container">
+            <h2 class="greeting">Welcome, <%= donor.firstname %>
+            </h2>
+
+            <h3 class="table-label">Your Donation Record</h3>
+
             <table class="table">
-                <tr id="donationDetails">
+                <tr class="tr">
                     <th>Date</th>
                     <th>Amount</th>
                     <th>Verification</th>
                 </tr>
                 <% if ( donations ) { %>
-                    <%  var total = 0 %>
-                    <% for (let donation of donations) { %>
-                        <tr id="donationDetails">
-                            <td>
-                                <%= JSON.stringify(donation.date).slice(1, 11) %>
-                            </td>
-                            <td>
-                                NGN <%= donation.amount %>
-                            </td>
-                            <td>
-                                <%= donation.verified %>
-                            </td>
-                        </tr>
-                    <%  total += Number(donation.amount) %>
-                    <% }; %>
-                <% } %>
-                <tr>
-                    <th>Total: </th>
-                    <th>NGN <%= total %></th>
-                </tr>
+                    <% var total=0 %>
+                        <% for (let donation of donations) { %>
+                            <tr>
+                                <td>
+                                    <%= JSON.stringify(donation.date).slice(1, 11) %>
+                                </td>
+                                <td>
+                                    NGN <%= donation.amount %>
+                                </td>
+                                <td>
+                                    <%= donation.verified %>
+                                </td>
+                            </tr>
+                            <% total +=Number(donation.amount) %>
+                                <% }; %>
+                                    <% } %>
+                                        <tr>
+                                            <th>Total: </th>
+                                            <th>NGN <%= total %>
+                                            </th>
+                                        </tr>
             </table>
 
-            <h3>Just made a payment? Notify Admin</h3>
-            <form action="/donor/notify" method="POST">
-                <div>
+            <form class="form" action="/donor/notify" method="POST">
+                <h3 class="form-header">Just made a donation? Notify Admin</h3>
+
+                <div class="form-group">
                     <label for="amount">Amount: </label>
                     <input type="number" name="amount" required>
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="Date">Date: </label>
                     <input type="date" name="date" required>
                 </div>
                 <button>Submit</button>
             </form>
-        </main>
+        </section>
         <% } %>
 </body>
 

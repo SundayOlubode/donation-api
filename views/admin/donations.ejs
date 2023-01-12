@@ -6,12 +6,12 @@
     
 <% if (donations) { %>
     
-    <% if (verifySuccess) { %>
+    <% if (verifySuccess.length > 0) { %>
         <div>
             <%= verifySuccess %>
         </div>
         <% } %>
-        <% if (errorMessage) { %>
+        <% if (errorMessage.length > 0) { %>
         <div>
             <%= errorMessage %>
         </div>
